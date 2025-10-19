@@ -6,6 +6,7 @@ An api for a blog app
 >
     # python3 -m venv env
     # source env/bin/activate
+    # pip install flask
     # flask --app app.py run --debug
 
 
