@@ -1,34 +1,33 @@
-# Blog-app
-An api for a blog app
+from flask import Flask, jsonify
 
-# Installation
+class Article :
+    def __init__(self, body, id):
+        self.body = body
+        self.id = id
+    def to_dict(self):
+        return {
+            'id': self.id, 
+            'body': self.body
+        }
+    body = ''
+    id = 0
+app = Flask(__name__)
+articles = list()
+articles.append(Article('ficel', 0)) 
+articles.append(Article('ryx', 1))
 
->
-    # python3 -m venv env
-    # source env/bin/activate
-    # pip install flask
-    # flask --app app.py run --debug
+@app.route('/trump')
+def hello():
+    return 'Hello, World!'
 
+@app.get('/articles')
+def get_articles():
+    return jsonify([article.to_dict() for article in articles])
 
-## or eventually
-` #flask --app flaskr run --debug `
-
-
-## you should read [this](https://flask.palletsprojects.com/en/stable/tutorial)
-
-## modify the .gitingnore file to look like this
->
-    .venv/
-    
-    *.pyc
-    __pycache__/
-    
-    instance/
-    
-    .pytest_cache/
-    .coverage
+@app.get('/articles/<int:id>')
+def get_article_by_id(id):
+    for article in articles:
+        if article.id == id:
+            return jsonify(article.to_dict())
     htmlcov/
-    
-    dist/
-    build/
-    *.egg-info/   
+     
